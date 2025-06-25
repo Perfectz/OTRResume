@@ -345,7 +345,7 @@
                 <div class="hidden sm:flex items-center space-x-2 mt-2 sm:mt-0">
                     <i class="fas fa-robot text-blue-500 icon-bounce"></i>
                     <span class="text-sm font-medium text-gray-700">Interactive Portfolio</span>
-                </div>
+            </div>
             </div>
             
             <!-- Desktop Navigation -->
@@ -387,14 +387,14 @@
                         </div>
                         <h2 class="text-2xl sm:text-3xl font-bold mb-4 gradient-text scroll-animate animate-fade-up delay-300">Revolutionizing OTR's AI Platform</h2>
 
-                    </div>
+                        </div>
                     
                     <!-- Video Introduction Section - Moved up for mobile -->
                     <div class="video-container mb-8 scroll-animate animate-scale delay-500 block md:hidden">
                         <div class="relative w-full">
                             <div class="w-full bg-black rounded-xl shadow-xl overflow-hidden aspect-video">
                                 <iframe title="vimeo-player" src="https://player.vimeo.com/video/1096147613?h=31d2a0999f" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
-                            </div>
+                        </div>
                         </div>
                     </div>
                     
@@ -710,7 +710,7 @@ function safeQuerySelector(selector) {
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        const planData = {
+    const planData = {
         'plan-30': {
             title: 'Phase 1: Foundation & Adoption (First 90 Days)',
             focus: 'Validating preliminary research, identifying security and compliance guardrails, establishing baseline metrics for a powerful ROI case, and building credibility through rapid, tangible demonstrations of value.',
@@ -809,7 +809,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const sectionIds = Array.from(navLinks).map(link => link.getAttribute('href'));
 
     function updateView(hash) {
+        console.log('updateView original called with:', hash, 'sectionIds:', sectionIds); // Debug log
         currentIndex = sectionIds.indexOf(hash);
+        console.log('currentIndex set to:', currentIndex); // Debug log
         
         sections.forEach(section => section.classList.remove('active'));
         navLinks.forEach(link => link.classList.remove('active'));
@@ -827,6 +829,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             let prevHash = currentIndex > 0 ? sectionIds[currentIndex - 1] : null;
             let nextHash = currentIndex < sectionIds.length - 1 ? sectionIds[currentIndex + 1] : null;
+            
+            console.log('renderNavButtons: currentIndex=', currentIndex, 'prevHash=', prevHash, 'nextHash=', nextHash); // Debug log
 
             let buttonsHTML = '';
             if(prevHash) {
@@ -906,6 +910,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileNavSelect.addEventListener('change', (e) => {
             const hash = e.target.value;
             if (hash && hash !== window.location.hash) {
+                console.log('Mobile nav select changed to:', hash); // Debug log
                 window.location.hash = hash;
             }
         });
@@ -917,9 +922,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // Override updateView to also update mobile nav
+        // Store original updateView function
         const originalUpdateView = updateView;
+        
+        // Enhanced updateView that also updates mobile nav
         updateView = function(hash) {
+            console.log('updateView called with:', hash); // Debug log
             originalUpdateView(hash);
             updateMobileNav(hash);
         };
@@ -1096,7 +1104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
         mloopsContainer.innerHTML = stepperHTML;
     }
-    
+
     // Initial Setup
     const initialHash = window.location.hash || '#home';
     updateView(initialHash);
@@ -1111,7 +1119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLeadership('all');
     
     renderSources();
-    
+
     renderArchitectureDiagram();
     renderMLoopsStepper();
     
@@ -1135,8 +1143,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const hash = target.getAttribute('href');
             if (hash) {
                 console.log('Navigating to:', hash); // Debug log
-                window.location.hash = hash;
-            }
+            window.location.hash = hash;
+        }
         }
     });
     
@@ -1157,19 +1165,46 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Enhanced section navigation with better event handling
     if (sectionNavContainer) {
-        sectionNavContainer.addEventListener('click', (e) => {
+        // Unified navigation handler
+        function handleSectionNavigation(e) {
             try {
                 const button = e.target.closest('.nav-section-btn');
                 if (button) {
                     e.preventDefault();
+                    e.stopPropagation();
                     const nextHash = button.dataset.nav;
                     if (nextHash) {
+                        console.log('Section nav button clicked, going to:', nextHash); // Debug log
                         window.location.hash = nextHash;
                     }
                 }
             } catch (error) {
-                console.error('Error in section navigation click:', error);
+                console.error('Error in section navigation:', error);
             }
+        }
+        
+        // Track if touch events should be handled
+        let touchHandled = false;
+        
+        sectionNavContainer.addEventListener('touchstart', (e) => {
+            touchHandled = false;
+        });
+        
+        sectionNavContainer.addEventListener('touchend', (e) => {
+            if (!touchHandled) {
+                touchHandled = true;
+                handleSectionNavigation(e);
+            }
+        });
+        
+        sectionNavContainer.addEventListener('click', (e) => {
+            if (!touchHandled) {
+                handleSectionNavigation(e);
+            }
+            // Reset the flag for next interaction
+            setTimeout(() => {
+                touchHandled = false;
+            }, 100);
         });
         
         // Keyboard support for navigation buttons
