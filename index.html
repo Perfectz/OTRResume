@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Mukuka Zgambo | AI/ML Solution Architect Two-Year Game Plan</title>
+    <meta name="description" content="Strategic AI/ML roadmap for OTR Solutions by Patrick Mukuka Zgambo - Principal AI Solution Architect with proven enterprise-grade AI implementation experience.">
+    <meta name="keywords" content="AI, ML, Solution Architect, Enterprise AI, Microsoft Azure, RAG, Copilot">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 
+        Chosen Palette: "Warm Neutral with Slate Blue Accent" - A professional and calm palette using beige/off-white for the background, dark slate for text, and a muted slate blue for primary actions and highlights. This creates a focused, high-end feel suitable for an executive presentation.
+        Application Structure Plan: A single-page application designed as an interactive dashboard. A new "Home" pitch section is the default view. Navigation is handled by a sticky header, allowing users to jump between key thematic sections: 1) Home, 2) Roadmap, 3) The Plan, 4) Use Cases, 5) Leadership & Tech, 6) POC, 7) Architecture, and 8) Sources. This structure deconstructs the linear report into explorable, digestible modules.
+        Visualization & Content Choices: 
+        - Report Info: Overall timeline -> Goal: Show high-level phasing -> Viz: Horizontal HTML/CSS timeline -> Interaction: N/A -> Justification: Provides an immediate, digestible overview of the year.
+        - Report Info: Leadership Structure -> Goal: Organize & Inform -> Viz: Filterable card grid -> Interaction: Filter by department -> Justification: Allows easy exploration of the organizational and technical landscape.
+        - Report Info: Departmental Use Cases & Business Impact -> Goal: Compare opportunities -> Viz: Filterable card grid -> Interaction: Filter by department -> Justification: Transforms a static table into an interactive tool for exploring specific business value and ROI.
+        - Report Info: POC Architecture -> Goal: Show system design -> Viz: HTML/CSS block diagram -> Interaction: N/A -> Justification: Clearly illustrates the POC's components and data flow.
+        - Report Info: System Architecture -> Goal: Organize & show relationships -> Viz: Pure HTML/CSS diagram -> Interaction: N/A -> Justification: Fulfills the "NO SVG/Mermaid" constraint while visualizing complex system flows effectively.
+        - Report Info: MLOps Learning Loop -> Goal: Show a process -> Viz: Vertical stepper component -> Interaction: N/A -> Justification: Clearly presents a cyclical, multi-stage process.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+        }
+        
+        .nav-link { 
+            transition: all 0.3s ease; 
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            cursor: pointer;
+            display: block;
+            touch-action: manipulation;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59,130,246,0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .nav-link:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link.active { 
+            color: #3b82f6; 
+            border-bottom-color: #3b82f6; 
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .nav-link:not(.active) { border-bottom-color: transparent; }
+        
+        .section-content { 
+            display: none; 
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .section-content.active { display: block; }
+        
+        .tab-button.active { 
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 250px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 250px; 
+            max-height: 250px; 
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes rotateIn {
+            from { opacity: 0; transform: rotate(-10deg) scale(0.8); }
+            to { opacity: 1; transform: rotate(0deg) scale(1); }
+        }
+        
+        /* Scroll Animation Classes */
+        .scroll-animate {
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-animate.animate-fade-up {
+            transform: translateY(30px);
+        }
+        
+        .scroll-animate.animate-fade-left {
+            transform: translateX(-50px);
+        }
+        
+        .scroll-animate.animate-fade-right {
+            transform: translateX(50px);
+        }
+        
+        .scroll-animate.animate-scale {
+            transform: scale(0.8);
+        }
+        
+        .scroll-animate.animate-rotate {
+            transform: rotate(-10deg) scale(0.8);
+        }
+        
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+        }
+        
+        /* Stagger animation delays for grouped elements */
+        .scroll-animate.delay-100 { transition-delay: 0.1s; }
+        .scroll-animate.delay-200 { transition-delay: 0.2s; }
+        .scroll-animate.delay-300 { transition-delay: 0.3s; }
+        .scroll-animate.delay-400 { transition-delay: 0.4s; }
+        .scroll-animate.delay-500 { transition-delay: 0.5s; }
+        .scroll-animate.delay-600 { transition-delay: 0.6s; }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+            pointer-events: none;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .timeline-line {
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+        
+        .mobile-nav {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            .mobile-nav {
+                display: block;
+            }
+        }
+        
+        .icon-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                transform: translate3d(0,-8px,0);
+            }
+            70% {
+                transform: translate3d(0,-4px,0);
+            }
+            90% {
+                transform: translate3d(0,-2px,0);
+            }
+        }
+        
+        /* Navigation Buttons Styling */
+        .nav-section-btn {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            touch-action: manipulation;
+            min-height: 44px; /* iOS touch target minimum */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-section-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .nav-section-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Error boundary styles */
+        .error-boundary {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        /* Loading states */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Focus styles for better accessibility */
+        .nav-link:focus,
+        .nav-section-btn:focus,
+        .tab-button:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        /* Responsive text sizes */
+        @media (max-width: 640px) {
+            .nav-section-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.875rem;
+                margin: 0.25rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .nav-section-btn + .nav-section-btn {
+                margin-left: 0;
+            }
+            
+            #section-nav-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: stretch;
+            }
+            
+            #section-nav-buttons .nav-section-btn {
+                margin: 0;
+            }
+        }
+        
+        @media (min-width: 641px) {
+            #section-nav-buttons {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <header class="sticky top-0 bg-white/95 backdrop-blur-sm z-20 py-4 border-b border-gray-200">
+            <div class="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 pb-4">
+                <div class="text-center sm:text-left">
+                    <h1 class="text-xl sm:text-2xl font-bold gradient-text">Patrick Mukuka Zgambo</h1>
+                    <p class="text-sm text-gray-700 font-medium">AI/ML Solution Architect • Strategic Roadmap</p>
+                </div>
+                <div class="hidden sm:flex items-center space-x-2 mt-2 sm:mt-0">
+                    <i class="fas fa-robot text-blue-500 icon-bounce"></i>
+                    <span class="text-sm font-medium text-gray-700">Interactive Portfolio</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav id="main-nav" class="mt-4 desktop-nav" role="navigation" aria-label="Main navigation">
+                <ul class="flex items-center space-x-2 sm:space-x-4 border-b border-gray-200 overflow-x-auto pb-2">
+                    <li><a href="#home" class="nav-link text-xs sm:text-sm font-medium text-gray-700 hover:text-blue-600 py-2 px-3 border-b-2 whitespace-nowrap rounded-t-lg" role="button" tabindex="0" aria-label="Navigate to Home section"><i class="fas fa-home mr-1"></i>Home</a></li>
+                    <li><a href="#roadmap" class="nav-link text-xs sm:text-sm font-medium text-gray-700 hover:text-blue-600 py-2 px-3 border-b-2 whitespace-nowrap rounded-t-lg" role="button" tabindex="0" aria-label="Navigate to Roadmap section"><i class="fas fa-route mr-1"></i>Roadmap</a></li>
+                    <li><a href="#plan" class="nav-link text-xs sm:text-sm font-medium text-gray-700 hover:text-blue-600 py-2 px-3 border-b-2 whitespace-nowrap rounded-t-lg" role="button" tabindex="0" aria-label="Navigate to Plan section"><i class="fas fa-tasks mr-1"></i>Plan</a></li>
+                    <li><a href="#use-cases" class="nav-link text-xs sm:text-sm font-medium text-gray-700 hover:text-blue-600 py-2 px-3 border-b-2 whitespace-nowrap rounded-t-lg" role="button" tabindex="0" aria-label="Navigate to Use Cases section"><i class="fas fa-lightbulb mr-1"></i>Use Cases</a></li>
+                    <li><a href="#leadership" class="nav-link text-xs sm:text-sm font-medium text-gray-700 hover:text-blue-600 py-2 px-3 border-b-2 whitespace-nowrap rounded-t-lg" role="button" tabindex="0" aria-label="Navigate to Leadership section"><i class="fas fa-users mr-1"></i>Leadership</a></li>
+                    <li><a href="#poc" class="nav-link text-xs sm:text-sm font-medium text-gray-700 hover:text-blue-600 py-2 px-3 border-b-2 whitespace-nowrap rounded-t-lg" role="button" tabindex="0" aria-label="Navigate to POC section"><i class="fas fa-flask mr-1"></i>POC</a></li>
+                    <li><a href="#tech" class="nav-link text-xs sm:text-sm font-medium text-gray-700 hover:text-blue-600 py-2 px-3 border-b-2 whitespace-nowrap rounded-t-lg" role="button" tabindex="0" aria-label="Navigate to Tech section"><i class="fas fa-cogs mr-1"></i>Tech</a></li>
+                    <li><a href="#sources" class="nav-link text-xs sm:text-sm font-medium text-gray-700 hover:text-blue-600 py-2 px-3 border-b-2 whitespace-nowrap rounded-t-lg" role="button" tabindex="0" aria-label="Navigate to Sources section"><i class="fas fa-book mr-1"></i>Sources</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Navigation -->
+            <nav class="mobile-nav mt-4" role="navigation" aria-label="Mobile navigation">
+                <label for="mobile-nav-select" class="sr-only">Select a section to navigate to</label>
+                <select id="mobile-nav-select" class="w-full p-3 rounded-lg bg-white/90 border border-gray-300 text-gray-700 font-medium" aria-label="Navigate to section">
+                    <option value="#home">🏠 Home</option>
+                    <option value="#roadmap">🛣️ Roadmap</option>
+                    <option value="#plan">📋 The Plan</option>
+                    <option value="#use-cases">💡 Use Cases</option>
+                    <option value="#leadership">👥 Leadership & Tech</option>
+                    <option value="#poc">🧪 POC</option>
+                    <option value="#tech">⚙️ Architecture</option>
+                    <option value="#sources">📚 Sources</option>
+                </select>
+            </nav>
+        </header>
+
+        <main class="py-8">
+            <section id="home" class="section-content">
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-center scroll-animate animate-fade-up">
+                    <div class="mb-6">
+                        <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg scroll-animate animate-scale delay-200">
+                            <i class="fas fa-brain text-white text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold mb-4 gradient-text scroll-animate animate-fade-up delay-300">Revolutionizing OTR's AI Platform</h2>
+
+                    </div>
+                    
+                    <!-- Video Introduction Section - Moved up for mobile -->
+                    <div class="video-container mb-8 scroll-animate animate-scale delay-500 block md:hidden">
+                        <div class="relative w-full">
+                            <div class="w-full bg-black rounded-xl shadow-xl overflow-hidden aspect-video">
+                                <iframe title="vimeo-player" src="https://player.vimeo.com/video/1096147613?h=31d2a0999f" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto mb-8 leading-relaxed scroll-animate animate-fade-up delay-600">OTR Solutions can fast-track its Copilot and AI-modernization roadmap by bringing on a Principal AI & ML Solution Architect with extensive experience designing and deploying enterprise-grade AI systems. Hiring me means OTR gains a hands-on leader ready to embed production-ready GenAI into your Clutch banking, fuel-card, and HighRadius-to-NetSuite flows—unlocking faster cash-application, richer customer experiences, and new revenue streams within the first 90 days.</p>
+                    
+                    <!-- Video Introduction Section - Desktop position -->
+                    <div class="video-container mb-8 scroll-animate animate-scale delay-700 hidden md:block">
+                        <div class="relative w-full max-w-2xl mx-auto">
+                            <div class="max-w-3xl mx-auto my-6 bg-black rounded-xl shadow-xl overflow-hidden aspect-video">
+                                <iframe title="vimeo-player" src="https://player.vimeo.com/video/1096147613?h=31d2a0999f" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left mb-8">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl shadow-lg card-hover border border-blue-200 scroll-animate animate-fade-left delay-100">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-robot text-blue-600 text-2xl mr-3"></i>
+                                <h3 class="font-bold text-blue-800">Enterprise RAG Copilots</h3>
+                            </div>
+                            <p class="text-sm text-blue-700 leading-relaxed">At AT&T, I led the creation of cross-cloud RAG copilots that weave Azure OpenAI, Azure AI Search, and Power Automate into ServiceNow and Salesforce workflows, slashing incident-triage time and surfacing knowledge on demand.</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl shadow-lg card-hover border border-purple-200 scroll-animate animate-fade-up delay-200">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-rocket text-purple-600 text-2xl mr-3"></i>
+                                <h3 class="font-bold text-purple-800">Rapid, High-Impact POCs</h3>
+                            </div>
+                            <p class="text-sm text-purple-700 leading-relaxed">To show how quickly I convert ideas into value, I built a container-first, multimodal site-survey proof-of-concept—a MERN app delivered as Docker microservices on AKS that pairs Whisper voice capture with GPT-4 Vision—cutting field-survey time by 35%.</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl shadow-lg card-hover border border-green-200 sm:col-span-2 lg:col-span-1 scroll-animate animate-fade-right delay-300">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-certificate text-green-600 text-2xl mr-3"></i>
+                                <h3 class="font-bold text-green-800">Microsoft-Certified Expertise</h3>
+                            </div>
+                            <p class="text-sm text-green-700 leading-relaxed">My hands-on leadership is backed by a Microsoft-centric skill set validated by Azure AI Engineer Associate and Azure AI Fundamentals certifications, ensuring alignment with OTR's technology stack.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="https://docs.google.com/document/d/1FbeFJPU1hcmJ7DmefI_c771dXFzLcSmYRa1qdFDz2fM/edit?usp=sharing" target="_blank" class="btn-primary text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center">
+                            <i class="fas fa-file-alt mr-2"></i>
+                            View My Resume
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+            
+            <section id="roadmap" class="section-content">
+                <div class="bg-white p-6 rounded-2xl shadow-lg mb-8 scroll-animate animate-fade-up">
+                    <div class="flex items-center mb-4 scroll-animate animate-fade-left delay-200">
+                        <i class="fas fa-route text-3xl gradient-text mr-4"></i>
+                        <h2 class="text-2xl sm:text-3xl font-bold gradient-text">High-Level Two-Year Roadmap</h2>
+                    </div>
+                    <p class="mb-6 text-gray-700 max-w-4xl leading-relaxed scroll-animate animate-fade-up delay-300">This roadmap provides a bird's-eye view of the key phases and objectives for the first two years. The plan is structured to deliver immediate value (Year 1), build a foundational platform (Year 1), and then accelerate innovation (Year 2).</p>
+                </div>
+                
+                <!-- Mobile Timeline -->
+                <div class="block md:hidden space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-lg card-hover scroll-animate animate-fade-left delay-100">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white font-bold">1</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg">Phase 1: Foundation & Adoption</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2 font-medium">First 90 Days</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Rapidly validate research, build key relationships, establish a robust governance and security foundation, and launch a successful Microsoft Copilot adoption program to demonstrate immediate, measurable value.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg card-hover scroll-animate animate-fade-right delay-200">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white font-bold">2</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg">Phase 2: Multi-Agent Architecture</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2 font-medium">Months 4-12</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Design, build, and govern a robust, enterprise-wide multi-agent platform. This phase focuses on creating the foundational "AI factory" to enable future innovation at scale.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg card-hover scroll-animate animate-fade-left delay-300">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white font-bold">3</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg">Phase 3: Product Innovation</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-2 font-medium">Year 2</p>
+                        <p class="text-sm text-gray-700 leading-relaxed">Aggressively leverage the platform to rapidly develop and deploy innovative, AI-powered features that enhance OTR's products and create significant competitive advantage.</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Timeline -->
+                <div class="hidden md:block relative wrap overflow-hidden p-10 h-full">
+                    <div class="timeline-line absolute border-opacity-20 h-full border-2 rounded-full" style="left: 50%"></div>
+                    <!-- Phase 1 -->
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-gradient-to-br from-blue-500 to-purple-600 shadow-xl w-12 h-12 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-xl shadow-xl w-5/12 px-6 py-4 card-hover">
+                            <h3 class="mb-3 font-bold text-gray-800 text-xl">Phase 1: Foundation & Adoption (First 90 Days)</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-700">Rapidly validate research, build key relationships, establish a robust governance and security foundation, and launch a successful Microsoft Copilot adoption program to demonstrate immediate, measurable value.</p>
+                        </div>
+                    </div>
+                    <!-- Phase 2 -->
+                    <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-gradient-to-br from-purple-500 to-pink-600 shadow-xl w-12 h-12 rounded-full">
+                            <h1 class="mx-auto text-white font-semibold text-lg">2</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-xl shadow-xl w-5/12 px-6 py-4 card-hover">
+                            <h3 class="mb-3 font-bold text-gray-800 text-xl">Phase 2: Multi-Agent Architecture (Months 4-12)</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-700">Design, build, and govern a robust, enterprise-wide multi-agent platform. This phase focuses on creating the foundational "AI factory" to enable future innovation at scale.</p>
+                        </div>
+                    </div>
+                     <!-- Phase 3 -->
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-gradient-to-br from-green-500 to-blue-600 shadow-xl w-12 h-12 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-xl shadow-xl w-5/12 px-6 py-4 card-hover">
+                            <h3 class="mb-3 font-bold text-gray-800 text-xl">Phase 3: Product Innovation (Year 2)</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-700">Aggressively leverage the platform to rapidly develop and deploy innovative, AI-powered features that enhance OTR's products and create significant competitive advantage.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="plan" class="section-content">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Detailed Action Plan</h2>
+                 <p class="mb-6 text-gray-600 max-w-4xl">This section details the specific actions, focus areas, and key deliverables for each stage of the plan. Each phase is designed to build upon the last, ensuring a logical progression from foundational work to full-scale implementation. Use the tabs to navigate through the two-year timeline.</p>
+                <div id="plan-tabs" class="mb-6 flex flex-wrap gap-2">
+                    <button data-target="plan-30" class="tab-button px-4 py-2 text-sm font-medium rounded-md bg-white text-gray-700 shadow-sm">First 90 Days</button>
+                    <button data-target="plan-year1" class="tab-button px-4 py-2 text-sm font-medium rounded-md bg-white text-gray-700 shadow-sm">Months 4-12</button>
+                    <button data-target="plan-year2" class="tab-button px-4 py-2 text-sm font-medium rounded-md bg-white text-gray-700 shadow-sm">Year 2</button>
+                </div>
+                <div id="plan-content" class="bg-white p-6 rounded-lg shadow">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+            </section>
+            
+            <section id="use-cases" class="section-content">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Departmental AI Use Cases & Business Impact</h2>
+                <p class="mb-6 text-gray-600 max-w-4xl">These are tangible, high-impact AI opportunities identified for key departments, grounded in OTR's specific technology stack. These use cases form the primary backlog for the **Phase 3: Product Innovation** efforts in Year 2. Filter by department to explore how AI can drive value across the organization.</p>
+                <div id="use-case-filters" class="mb-6 flex flex-wrap gap-2">
+                     <button data-filter="all" class="use-case-filter-btn bg-blue-500 text-white px-3 py-1.5 rounded-md text-sm font-medium">All</button>
+                     <!-- Dynamic filter buttons will be injected here -->
+                </div>
+                <div id="use-case-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic use case cards will be injected here -->
+                </div>
+            </section>
+
+            <section id="leadership" class="section-content">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Leadership, Departments & Technology</h2>
+                <p class="mb-6 text-gray-600 max-w-4xl">Understanding the organizational structure and the technology used by each team is critical for successful AI implementation. This section provides an overview of key departments, their leaders, and their primary SaaS platforms. Filter by department to see the specific tools in use.</p>
+                <div id="leadership-filters" class="mb-6 flex flex-wrap gap-2">
+                     <button data-filter="all" class="leadership-filter-btn bg-blue-500 text-white px-3 py-1.5 rounded-md text-sm font-medium">All</button>
+                     <!-- Dynamic filter buttons will be injected here -->
+                </div>
+                <div id="leadership-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic leadership cards will be injected here -->
+                </div>
+            </section>
+
+            <section id="poc" class="section-content">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Rapid Prototype: The "AI Fuel-Coach"</h2>
+                <p class="mb-6 text-gray-600 max-w-4xl">To demonstrate the ability to quickly develop and integrate a high-value, AI-driven feature into OTR's existing ecosystem, this section outlines a tangible Proof of Concept (POC). This POC is designed to be built within one week during Phase 1 and serves as a concrete example of the hands-on architectural and development skills I bring to the table.</p>
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg mb-8">
+                    <p class="font-bold">A Note on the POC Approach</p>
+                    <p class="text-sm mt-2">This Proof of Concept was intentionally designed with a technology stack that mirrors OTR's own environment—leveraging .NET for microservices and a React-based front-end. This approach was chosen to not only demonstrate a high-value AI feature but also to begin familiarizing myself with the specific nuances of OTR's business and technical landscape. All supporting documentation, from use cases to acceptance criteria, is structured to align with common Azure DevOps practices. The prototype itself was developed with rapid, AI-assisted tooling (Cursor), and all documentation is available via GitHub to showcase the velocity at which we can move from idea to functional code.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Problem & Business Win</h3>
+                        <p class="text-sm text-gray-600 mb-4"><strong class="text-gray-800">The Gap:</strong> OTR's current app shows *where* the cheapest fuel is now, but doesn't provide a strategic fueling plan considering future price volatility, route length, and truck specs. This leaves significant money on the table for carriers.</p>
+                        <p class="text-sm text-gray-600"><strong class="text-gray-800">The Win:</strong> An "AI Fuel-Coach" that delivers a "when, where, and how much to buy" plan can save <strong class="text-blue-600">$0.07-$0.12 per gallon</strong>. This is a savings of $14-$24 on a standard fill-up, often enough to offset the entire factoring fee for that load. It transforms a discount tool into a powerful profit engine.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Strategic Value for OTR</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">✓</span> <span class="text-gray-700">Demonstrates full-stack, agentic AI architecture skills.</span></li>
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">✓</span> <span class="text-gray-700">Creates a feature with a clear, demonstrable ROI.</span></li>
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">✓</span> <span class="text-gray-700">Increases customer "stickiness" and strengthens OTR's value proposition.</span></li>
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">✓</span> <span class="text-gray-700">Showcases rapid, agile development velocity.</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">POC Architecture & Agentic Workflow</h3>
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="flex-1">
+                            <div class="font-mono text-xs p-4 bg-gray-900 text-white rounded-lg">
+                                <p><span class="text-purple-400">OTR Mobile App (React Native)</span></p>
+                                <p class="pl-4">|-- <span class="text-yellow-400">"Fuel-Coach" Screen</span></p>
+                                <p class="pl-4">↓ <span class="text-gray-500">HTTPS/JSON</span></p>
+                                <p><span class="text-cyan-400">Azure Cloud</span></p>
+                                <p class="pl-4">|-- <span class="text-green-400">Fuel-Coach API (.NET 8)</span></p>
+                                <p class="pl-8">|-- ↓ <span class="text-gray-500">gRPC</span></p>
+                                <p class="pl-8">`-- <span class="text-orange-400">LangChain Agent (Python)</span></p>
+                                <p class="pl-12">|-- Orchestrates --></p>
+                                <p class="pl-12">`-- <span class="text-pink-400">[Route, Price, Math Tools]</span></p>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <ol class="relative border-l border-gray-200">                  
+                                <li class="mb-6 ml-4">
+                                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white"></div>
+                                    <h4 class="text-base font-semibold text-gray-900">1. Driver Input</h4>
+                                    <p class="text-sm text-gray-600">Origin, destination, truck profile.</p>
+                                </li>
+                                <li class="mb-6 ml-4">
+                                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white"></div>
+                                    <h4 class="text-base font-semibold text-gray-900">2. Route Calculation</h4>
+                                    <p class="text-sm text-gray-600">Tool gets all in-network fuel stops on path.</p>
+                                </li>
+                                <li class="mb-6 ml-4">
+                                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white"></div>
+                                    <h4 class="text-base font-semibold text-gray-900">3. Price Forecasting</h4>
+                                    <p class="text-sm text-gray-600">Tool predicts 24hr price change at each stop.</p>
+                                </li>
+                                <li class="mb-6 ml-4">
+                                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white"></div>
+                                    <h4 class="text-base font-semibold text-gray-900">4. LLM Plan Generation</h4>
+                                    <p class="text-sm text-gray-600">GPT-4o agent synthesizes data to find optimal fueling strategy.</p>
+                                </li>
+                                 <li class="ml-4">
+                                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white"></div>
+                                    <h4 class="text-base font-semibold text-gray-900">5. Actionable Itinerary</h4>
+                                    <p class="text-sm text-gray-600">Returns simple plan to the mobile app.</p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tech" class="section-content">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Technology & MLOps</h2>
+                <p class="mb-8 text-gray-600 max-w-4xl">This section provides a technical deep-dive, visualizing OTR's system architecture and outlining the continuous learning loop that ensures our AI solutions improve over time. A robust MLOps practice is key to transforming AI from a one-time project into a self-improving, appreciating asset.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                     <div class="bg-white p-6 rounded-lg shadow lg:col-span-2">
+                        <h3 class="text-xl font-bold mb-4 text-gray-900">Existing AI Resources to Leverage</h3>
+                        <p class="text-gray-600 text-sm mb-4">A key principle of this plan is to build upon OTR's existing strengths. We will not be starting from scratch; instead, we will extend and enhance the current AI capabilities and resources to accelerate our progress.</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">OTRintelligence Engine</h4>
+                                <p class="text-gray-600 text-sm mt-1">This proprietary machine learning engine for invoice and document processing is a significant asset. In Phase 2, we will treat it as a foundational "tool" that our new multi-agent platform can call upon. New agents can leverage its existing capabilities for document verification, freeing them to focus on higher-level orchestration and decision-making.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-gray-800">AI Architect Role & Ambassadors</h4>
+                                <p class="text-gray-600 text-sm mt-1">The established AI Architect role and the "AI Ambassadors" program demonstrate a company-wide commitment to AI. This plan will formalize this into an AI Center of Excellence (CoE). The existing ambassadors will be the first members of the "Copilot Champions" cohort, and the AI Architect role will naturally evolve to lead the design of the multi-agent platform.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4 text-gray-900">System Architecture Overview</h3>
+                        <div id="architecture-diagram" class="relative p-4 bg-gray-50 rounded-lg min-h-[400px]">
+                           <!-- HTML/CSS diagram will be injected here -->
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-bold mb-4 text-gray-900">Copilot Optimization & Learning Flow</h3>
+                        <div id="mloops-stepper">
+                           <!-- MLOps stepper will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="sources" class="section-content">
+                <h2 class="text-3xl font-bold mb-2 text-gray-900">Source Library</h2>
+                <p class="mb-8 text-gray-600 max-w-4xl">This plan was informed by research compiled from a variety of public sources to map OTR Solutions' product suite, technology stack, leadership structure, and operational priorities.</p>
+                <div id="sources-list" class="space-y-4">
+                    <!-- Sources will be injected here -->
+                </div>
+            </section>
+            
+             <div id="section-nav-buttons" class="mt-12 text-center"></div>
+
+        </main>
+    </div>
+
+<script>
+// Production-ready error handling
+function handleError(error, context = '') {
+    console.error(`Error in ${context}:`, error);
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-boundary';
+    errorDiv.innerHTML = `
+        <h3>Something went wrong</h3>
+        <p>Please refresh the page or try again. ${context}</p>
+    `;
+    return errorDiv;
+}
+
+// Safe DOM manipulation helper
+function safeQuerySelector(selector) {
+    try {
+        return document.querySelector(selector);
+    } catch (error) {
+        console.error('Invalid selector:', selector, error);
+        return null;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const planData = {
+        'plan-30': {
+            title: 'Phase 1: Foundation & Adoption (First 90 Days)',
+            focus: 'Validating preliminary research, identifying security and compliance guardrails, establishing baseline metrics for a powerful ROI case, and building credibility through rapid, tangible demonstrations of value.',
+            actions: [
+                'Engage InfoSec & Compliance in the first two weeks to establish a partnership and ensure a security-by-design approach.',
+                'Conduct "ride-alongs" with Operations and AR specialists to observe daily workflows and identify high-value automation opportunities.',
+                'Establish baseline metrics (e.g., avg. invoice-match time, sales email SLAs) to quantify the "before" state for a clear ROI case.',
+                'Develop and demo a rapid prototype like the "AI Fuel-Coach" to showcase the art of the possible and build technical credibility.'
+            ],
+            deliverable: 'A "Validated State & Opportunity" document, including a crucial license and connector assessment table to prevent scope creep and set realistic expectations.',
+        },
+        'plan-year1': {
+            title: 'Phase 2: Reusable Multi-Agent Architecture (Months 4-12)',
+            focus: 'To design, build, and govern a robust, enterprise-wide multi-agent platform. This foundational phase focuses on creating the "AI factory"—the core infrastructure that will enable rapid development and deployment of intelligent solutions in the future.',
+            actions: [
+                'Conduct deep-dive workshops to map critical end-to-end business processes and identify common automation patterns.',
+                'Architect the blueprint for a "standard" OTR agent, defining its core components (memory, tools, reasoning).',
+                'Design and build the central orchestration layer to manage how agents are invoked and delegate tasks.',
+                'Develop a Platform MVP with two initial internal agents (e.g., IT Helpdesk, AR Collections) to prove viability.',
+                'Operationalize the AI Center of Excellence (CoE) to govern the new platform, approve new agent skills, and monitor performance.'
+            ],
+            deliverable: 'A Functioning Multi-Agent Platform MVP, a comprehensive Architectural Blueprint, and a fully operational AI Governance Framework managed by the CoE.',
+        },
+        'plan-year2': {
+            title: 'Phase 3: Product Innovation & Expansion (Year 2)',
+            focus: 'To aggressively leverage the multi-agent platform built in Phase 2 to rapidly develop and deploy innovative, AI-powered features that enhance OTR\'s products, delight customers, and create a significant competitive advantage.',
+            actions: [
+                'Execute on the product-AI roadmap, using the agent framework to build and deploy features from the use case backlog.',
+                'Launch the first wave of enhancements (e.g., Dynamic Credit/Risk Advisor) and measure their ROI against baselines.',
+                'Continuously expand the platform\'s capabilities based on the needs of new product features (e.g., new data source tools).',
+                'Begin experimenting with more sophisticated AI paradigms, like predictive cash-flow forecasting.',
+                'Develop the strategic AI roadmap for Year 3 based on successes and learnings.'
+            ],
+            deliverable: 'Multiple high-impact, AI-enhanced features shipped to production, detailed ROI reports for each, an expanded multi-agent platform, and a strategic AI roadmap for Year 3.',
+        }
+    };
+    
+    const useCasesData = [
+        { department: 'AR', title: 'Invoice-to-Cash / AR', stakeholder: 'Amelia Jones', useCase: 'Cash-Match Bot uses Copilot to post remittance exceptions from HighRadius into the NetSuite ledger.', impact: 'Reduce manual AR processing time by 20-30%; lower Days Sales Outstanding (DSO) by 1-2 days.' },
+        { department: 'Sales', title: 'Sales', stakeholder: 'Jeff Miller', useCase: 'Email Coach drafts prospecting mails & updates Salesforce notes after calls.', impact: 'Increase sales team productivity by 15%; improve lead response time and follow-up consistency.' },
+        { department: 'Operations', title: 'Operations', stakeholder: 'Greg Moseley', useCase: 'Load-Doc QA Agent uses OCR on bills of lading, validates against TMS data, and flags discrepancies before funding.', impact: 'Accelerate funding times by flagging paperwork errors instantly; reduce manual document verification effort by up to 50%.' },
+        { department: 'Credit', title: 'Credit / Risk', stakeholder: 'Alex Ottoson', useCase: 'Dynamic Limit Advisor ingests Ansonia credit feeds, predicts risk shifts, and auto-suggests exposure caps.', impact: 'Improve credit decision speed and accuracy; proactively mitigate losses from high-risk brokers.' },
+        { department: 'BI', title: 'Business Intelligence', stakeholder: 'Rob Youngblood', useCase: 'SQL-to-Insights Copilot lets analysts ask natural-language questions of the Azure Synapse warehouse.', impact: 'Democratize data access for non-technical users; reduce time-to-insight for business questions from days to minutes.' },
+        { department: 'HR', title: 'HR & Recruiting', stakeholder: 'Laura al-Marry', useCase: 'Talent Scout Agent screens résumés in Greenhouse, ranks culture fit, and drafts initial outreach emails.', impact: 'Decrease time-to-hire by 25%; improve quality of candidate pipeline by automating initial screening.' },
+    ];
+
+    const leadershipData = [
+        { group: 'tech', leader: 'Drew Bingham', title: 'Chief Technology Officer', mandate: 'Lead all software development, product management, and engineering initiatives, driving creation of OTR\'s cloud-native factoring platform.', tech: ['Microsoft Azure', '.NET/C#', 'Salesforce', 'Azure DevOps', 'Terraform'] },
+        { group: 'finance', leader: 'Peter Corrigan', title: 'Chief Financial Officer', mandate: 'Oversee all financial functions including accounting, financial reporting, FP&A, treasury, and capital strategy.', tech: ['Oracle NetSuite', 'HighRadius', 'Power BI/Tableau'] },
+        { group: 'sales', leader: 'Jeff Miller', title: 'Chief Sales Officer', mandate: 'Lead OTR\'s sales organization to recruit new carrier clients and grow business with existing clients.', tech: ['Salesforce Sales Cloud', 'SalesLoft/Outreach', 'LinkedIn Sales Navigator'] },
+        { group: 'ops', leader: 'Greg Moseley', title: 'Vice President of Operations', mandate: 'Oversee factoring operations and service delivery for carriers, including client onboarding, account management, and back-office support.', tech: ['OTR365 Platform', 'Salesforce Service Cloud', 'FMCSA Safer'] },
+        { group: 'ar', leader: 'Amelia Jones', title: 'Director of Accounts Receivable', mandate: 'Oversee the end-to-end invoice-to-cash process, from invoice receipt and verification through payment collection.', tech: ['HighRadius', 'Epay Manager', 'Oracle NetSuite'] },
+        { group: 'bi', leader: 'Rob Youngblood', title: 'Vice President of BI', mandate: 'Leverage data analytics to drive strategic decision-making and improve operational efficiency through dashboards, reports, and predictive models.', tech: ['Power BI/Tableau', 'Python/R', 'SQL', 'Azure Synapse'] }
+    ];
+
+    const mloopsData = [
+        { icon: '1', title: 'Instrument Every Answer', description: 'Add an Adaptive Card to every Copilot reply for user ratings (1-5 stars). Store results in Dataverse to create a constant stream of qualitative and quantitative feedback.' },
+        { icon: '2', title: 'Collect & Slice Data', description: 'Analyze chat logs and ratings. Systematically filter for low scores or repeat questions to identify clear failure signals where the user\'s intent was not met.' },
+        { icon: '3', title: 'Diagnose the Failure Mode', description: 'Use Azure AI Studio evaluators to diagnose the root cause: was it a Retrieval Miss (wrong info), a Hallucination (made-up info), or a Prompt Logic Gap (misunderstood intent)?' },
+        { icon: '4', title: 'Automate Triage', description: 'Use DevOps pipelines to refresh indexes and run tests nightly. Use Power Automate to automatically create tickets in the backlog for any low-rated responses, attaching the full transcript.' },
+        { icon: '5', title: 'Retrain or Republish', description: 'For RAG/prompt issues, republish changes to Copilot Studio with zero downtime. For domain-specific models, use the AI Builder feedback loop to retrain with newly validated data.' },
+        { icon: '6', title: 'Track Improvement', description: 'Monitor KPIs like "Satisfied sessions" and evaluator pass-rates in analytics dashboards. The goal is to see these metrics trend upward, proving the efficacy of the MLOps loop.' }
+    ];
+    
+    const sourcesData = [
+        { title: 'OTR Solutions - Main corporate website', description: 'Core overview of services (factoring, fuel card, client tools), company promises, and forthcoming "OTR Intelligence" product launch.' },
+        { title: 'Press release: "OTR Solutions Launches OTR Clutch"', description: 'Confirms product positioning, FDIC partnership details, and launch timeline for the Clutch banking offering.' },
+        { title: 'OTR Clutch microsite', description: 'Feature list, business-banking value props, and integration points with OTR\'s factoring wallet.' },
+        { title: 'OTR Fuel Card service page', description: 'Pricing claims, network size, savings calculator, and link to in-app Fuel Finder.' },
+        { title: 'HighRadius case study - "85% Efficiency Boost"', description: 'Quantified impact of AI-driven cash-application on OTR\'s finance ops; quotes CFO Peter Corrigan.' },
+        { title: 'Oracle NetSuite article - "Alliance Partners"', description: 'Covers OTR\'s ERP migration, custom dashboards, and integration architecture delivered by Bryant Park Consulting.' },
+        { title: 'TheOrg.com - "Leadership Team" profile for OTR Solutions', description: 'Expands the hierarchy beyond the C-suite, showing VPs and senior directors across key departments.' },
+        { title: 'LinkedIn Job Posts (e.g., "Salesforce Architect")', description: 'Highlights a cloud-native platform, experience with Azure/AWS/GCP, and heavy investment in Salesforce, confirming the core tech stack.' }
+    ];
+
+    const mainNav = document.getElementById('main-nav');
+    const sections = document.querySelectorAll('.section-content');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const appBody = document.querySelector('main');
+    const sectionNavContainer = document.getElementById('section-nav-buttons');
+
+    const planTabsContainer = document.getElementById('plan-tabs');
+    const planContentContainer = document.getElementById('plan-content');
+    
+    const useCaseFilterContainer = document.getElementById('use-case-filters');
+    const useCaseGridContainer = document.getElementById('use-case-grid');
+    
+    const leadershipFilterContainer = document.getElementById('leadership-filters');
+    const leadershipGridContainer = document.getElementById('leadership-grid');
+    
+    const architectureContainer = document.getElementById('architecture-diagram');
+    const mloopsContainer = document.getElementById('mloops-stepper');
+    const sourcesListContainer = document.getElementById('sources-list');
+
+    let currentIndex = 0;
+    const sectionIds = Array.from(navLinks).map(link => link.getAttribute('href'));
+
+    function updateView(hash) {
+        currentIndex = sectionIds.indexOf(hash);
+        
+        sections.forEach(section => section.classList.remove('active'));
+        navLinks.forEach(link => link.classList.remove('active'));
+
+        const activeSection = document.querySelector(hash);
+        const activeLink = document.querySelector(`.nav-link[href="${hash}"]`);
+
+        if (activeSection) activeSection.classList.add('active');
+        if (activeLink) activeLink.classList.add('active');
+        
+        renderNavButtons();
+    }
+    
+    function renderNavButtons() {
+        try {
+            let prevHash = currentIndex > 0 ? sectionIds[currentIndex - 1] : null;
+            let nextHash = currentIndex < sectionIds.length - 1 ? sectionIds[currentIndex + 1] : null;
+
+            let buttonsHTML = '';
+            if(prevHash) {
+                const prevText = getSectionName(prevHash);
+                buttonsHTML += `<button data-nav="${prevHash}" class="nav-section-btn bg-gray-200 text-gray-700 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors" role="button" aria-label="Go to previous section: ${prevText}">
+                    <i class="fas fa-arrow-left mr-2"></i>Previous Section
+                </button>`;
+            }
+            if(nextHash) {
+                const nextText = getSectionName(nextHash);
+                buttonsHTML += `<button data-nav="${nextHash}" class="nav-section-btn btn-primary text-white font-bold py-3 px-6 rounded-lg transition-colors ${prevHash ? 'ml-4' : ''}" role="button" aria-label="Go to next section: ${nextText}">
+                    Next Section<i class="fas fa-arrow-right ml-2"></i>
+                </button>`;
+            }
+            
+            if (sectionNavContainer) {
+                sectionNavContainer.innerHTML = buttonsHTML;
+            }
+        } catch (error) {
+            console.error('Error rendering navigation buttons:', error);
+        }
+    }
+    
+    function getSectionName(hash) {
+        const names = {
+            '#home': 'Home',
+            '#roadmap': 'Roadmap', 
+            '#plan': 'The Plan',
+            '#use-cases': 'Use Cases',
+            '#leadership': 'Leadership & Tech',
+            '#poc': 'POC',
+            '#tech': 'Architecture',
+            '#sources': 'Sources'
+        };
+        return names[hash] || 'Section';
+    }
+    
+    // Scroll Animation Setup
+    function initScrollAnimations() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Optional: Stop observing once animated
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with scroll-animate class
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    // Re-initialize scroll animations when switching sections
+    function reinitializeScrollAnimations() {
+        // Reset all animations
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            el.classList.remove('is-visible');
+        });
+        
+        // Small delay to allow section transition
+        setTimeout(() => {
+            initScrollAnimations();
+        }, 100);
+    }
+    
+    // Mobile Navigation Setup
+    const mobileNavSelect = document.getElementById('mobile-nav-select');
+    if (mobileNavSelect) {
+        mobileNavSelect.addEventListener('change', (e) => {
+            const hash = e.target.value;
+            if (hash && hash !== window.location.hash) {
+                window.location.hash = hash;
+            }
+        });
+        
+        // Update mobile nav when hash changes
+        function updateMobileNav(hash) {
+            if (mobileNavSelect && mobileNavSelect.value !== hash) {
+                mobileNavSelect.value = hash;
+            }
+        }
+        
+        // Override updateView to also update mobile nav
+        const originalUpdateView = updateView;
+        updateView = function(hash) {
+            originalUpdateView(hash);
+            updateMobileNav(hash);
+        };
+    }
+
+
+    function renderPlanContent(targetId) {
+        const data = planData[targetId];
+        if (!data) return;
+
+        planContentContainer.innerHTML = `
+            <h3 class="text-xl font-bold text-gray-900 mb-4">${data.title}</h3>
+            <div class="grid lg:grid-cols-1 gap-8">
+                <div>
+                    <p class="font-semibold text-gray-700">Focus:</p>
+                    <p class="mb-4 text-gray-600">${data.focus}</p>
+                    <p class="font-semibold text-gray-700">Key Actions:</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 mb-4">
+                        ${data.actions.map(action => `<li>${action}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-semibold text-blue-800 mb-2">Key Deliverable</h4>
+                        <p class="text-blue-700 text-sm">${data.deliverable}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderUseCases(filter = 'all') {
+        useCaseGridContainer.innerHTML = '';
+        const filteredData = filter === 'all' 
+            ? useCasesData 
+            : useCasesData.filter(uc => uc.department.toLowerCase().includes(filter));
+
+        filteredData.forEach(uc => {
+            const card = document.createElement('div');
+            card.className = 'bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 flex flex-col';
+            card.innerHTML = `
+                <div class="flex-grow">
+                    <h4 class="text-lg font-bold text-gray-900">${uc.title}</h4>
+                    <p class="text-sm text-gray-500 mb-4">Lead: ${uc.stakeholder}</p>
+                    <p class="text-gray-600 text-sm mb-4"><strong class="text-gray-700">Use Case:</strong> ${uc.useCase}</p>
+                </div>
+                <div class="mt-auto pt-4 border-t border-gray-200">
+                    <p class="text-sm font-semibold text-blue-600">Business Impact:</p>
+                    <p class="text-sm text-gray-700">${uc.impact}</p>
+                </div>
+            `;
+            useCaseGridContainer.appendChild(card);
+        });
+    }
+
+    function setupUseCaseFilters() {
+        const departments = [...new Set(useCasesData.map(uc => uc.department))];
+        departments.forEach(dep => {
+            const btn = document.createElement('button');
+            btn.dataset.filter = dep.toLowerCase();
+            btn.className = 'use-case-filter-btn bg-white text-gray-700 px-3 py-1.5 rounded-md text-sm font-medium shadow-sm hover:bg-gray-100';
+            btn.textContent = useCasesData.find(uc => uc.department === dep).title.split(' / ')[0];
+            useCaseFilterContainer.appendChild(btn);
+        });
+
+        useCaseFilterContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('use-case-filter-btn')) {
+                const filter = e.target.dataset.filter;
+                renderUseCases(filter);
+                document.querySelectorAll('#use-case-filters .use-case-filter-btn').forEach(b => {
+                    b.classList.remove('bg-blue-500', 'text-white');
+                    b.classList.add('bg-white', 'text-gray-700');
+                });
+                e.target.classList.add('bg-blue-500', 'text-white');
+            }
+        });
+    }
+    
+    function renderLeadership(filter = 'all') {
+        leadershipGridContainer.innerHTML = '';
+        const filteredData = filter === 'all'
+            ? leadershipData
+            : leadershipData.filter(l => l.group === filter);
+
+        filteredData.forEach(lead => {
+            const card = document.createElement('div');
+            card.className = 'bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 flex flex-col';
+            card.innerHTML = `
+                <div class="flex-grow">
+                    <h4 class="text-lg font-bold text-gray-900">${lead.leader}</h4>
+                    <p class="text-sm text-blue-600 font-medium mb-4">${lead.title}</p>
+                    <p class="text-gray-600 text-sm mb-4">${lead.mandate}</p>
+                </div>
+                <div class="mt-auto pt-4 border-t border-gray-200">
+                    <p class="text-sm font-semibold text-gray-800 mb-2">Key Technologies:</p>
+                    <div class="flex flex-wrap gap-2">
+                        ${lead.tech.map(t => `<span class="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            leadershipGridContainer.appendChild(card);
+        });
+    }
+
+    function setupLeadershipFilters() {
+        const groups = [...new Set(leadershipData.map(l => l.group))];
+        const groupNames = {tech: 'Technology', finance: 'Finance', sales: 'Sales', ops: 'Operations', ar: 'AR', bi: 'BI' };
+        groups.forEach(group => {
+            const btn = document.createElement('button');
+            btn.dataset.filter = group;
+            btn.className = 'leadership-filter-btn bg-white text-gray-700 px-3 py-1.5 rounded-md text-sm font-medium shadow-sm hover:bg-gray-100';
+            btn.textContent = groupNames[group];
+            leadershipFilterContainer.appendChild(btn);
+        });
+
+        leadershipFilterContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('leadership-filter-btn')) {
+                const filter = e.target.dataset.filter;
+                renderLeadership(filter);
+                 document.querySelectorAll('#leadership-filters .leadership-filter-btn').forEach(b => {
+                    b.classList.remove('bg-blue-500', 'text-white');
+                    b.classList.add('bg-white', 'text-gray-700');
+                });
+                e.target.classList.add('bg-blue-500', 'text-white');
+            }
+        });
+    }
+    
+    function renderSources() {
+        sourcesListContainer.innerHTML = sourcesData.map((source, index) => `
+            <div class="bg-white p-4 rounded-lg shadow-sm border">
+                <p class="font-semibold text-gray-800">${index + 1}. ${source.title}</p>
+                <p class="text-sm text-gray-600 mt-1 pl-5">${source.description}</p>
+            </div>
+        `).join('');
+    }
+
+    function renderArchitectureDiagram() {
+        architectureContainer.innerHTML = `
+             <p class="text-sm text-gray-600 mb-4">This diagram visualizes OTR's ecosystem, highlighting Systems of Record (blue), Systems of Engagement (green), and key Integrations (grey).</p>
+            <div class="grid grid-cols-3 gap-4 text-center text-xs font-semibold" style="height: 400px;">
+                <!-- Row 1: Engagement -->
+                <div class="bg-green-100 text-green-800 p-2 rounded-md flex items-center justify-center border border-green-300">Client Portal & App</div>
+                <div></div>
+                <div class="bg-green-100 text-green-800 p-2 rounded-md flex items-center justify-center border border-green-300">OTR Clutch Banking</div>
+                <!-- Row 2: Core -->
+                <div class="bg-blue-100 text-blue-800 p-2 rounded-md flex items-center justify-center border border-blue-300">Salesforce CRM</div>
+                <div class="bg-blue-100 text-blue-800 p-2 rounded-md flex items-center justify-center border border-blue-300">NetSuite ERP</div>
+                <div class="bg-blue-100 text-blue-800 p-2 rounded-md flex items-center justify-center border border-blue-300">HighRadius Cash App</div>
+                <!-- Row 3: Integrations -->
+                <div class="bg-gray-200 text-gray-700 p-2 rounded-md flex items-center justify-center border border-gray-300">TMS Integrations</div>
+                <div class="bg-gray-200 text-gray-700 p-2 rounded-md flex items-center justify-center border border-gray-300">DAT Load Board</div>
+                <div class="bg-gray-200 text-gray-700 p-2 rounded-md flex items-center justify-center border border-gray-300">Azure Cloud</div>
+            </div>
+        `;
+    }
+
+    function renderMLoopsStepper() {
+        const stepperHTML = mloopsData.map(step => `
+            <div class="flex">
+                <div class="flex flex-col items-center mr-4">
+                    <div>
+                        <div class="flex items-center justify-center w-8 h-8 border rounded-full bg-blue-500 text-white">
+                            <span class="font-bold">${step.icon}</span>
+                        </div>
+                    </div>
+                    <div class="w-px h-full bg-gray-300"></div>
+                </div>
+                <div class="pb-8">
+                    <p class="mb-1 text-md font-bold text-gray-800">${step.title}</p>
+                    <p class="text-gray-600 text-sm">${step.description}</p>
+                </div>
+            </div>
+        `).join('');
+        mloopsContainer.innerHTML = stepperHTML;
+    }
+    
+    // Initial Setup
+    const initialHash = window.location.hash || '#home';
+    updateView(initialHash);
+    
+    renderPlanContent('plan-30');
+    planTabsContainer.querySelector('[data-target="plan-30"]').classList.add('active');
+
+    setupUseCaseFilters();
+    renderUseCases('all');
+
+    setupLeadershipFilters();
+    renderLeadership('all');
+    
+    renderSources();
+    
+    renderArchitectureDiagram();
+    renderMLoopsStepper();
+    
+    // Initialize scroll animations
+    initScrollAnimations();
+    
+    document.getElementById('view-plan-btn')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetHash = this.getAttribute('href');
+        window.location.hash = targetHash;
+    });
+
+    // Navigation click handler with better event delegation
+    mainNav.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Find the closest nav-link element
+        let target = e.target.closest('.nav-link');
+        
+        if (target) {
+            const hash = target.getAttribute('href');
+            if (hash) {
+                console.log('Navigating to:', hash); // Debug log
+                window.location.hash = hash;
+            }
+        }
+    });
+    
+    // Additional touch event for mobile devices
+    mainNav.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        
+        let target = e.target.closest('.nav-link');
+        
+        if (target) {
+            const hash = target.getAttribute('href');
+            if (hash) {
+                console.log('Touch navigating to:', hash); // Debug log
+                window.location.hash = hash;
+            }
+        }
+    });
+    
+    // Enhanced section navigation with better event handling
+    if (sectionNavContainer) {
+        sectionNavContainer.addEventListener('click', (e) => {
+            try {
+                const button = e.target.closest('.nav-section-btn');
+                if (button) {
+                    e.preventDefault();
+                    const nextHash = button.dataset.nav;
+                    if (nextHash) {
+                        window.location.hash = nextHash;
+                    }
+                }
+            } catch (error) {
+                console.error('Error in section navigation click:', error);
+            }
+        });
+        
+        // Keyboard support for navigation buttons
+        sectionNavContainer.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const button = e.target.closest('.nav-section-btn');
+                if (button) {
+                    e.preventDefault();
+                    button.click();
+                }
+            }
+        });
+    }
+
+    window.addEventListener('hashchange', () => {
+        updateView(window.location.hash || '#home');
+        window.scrollTo(0, 0);
+        // Reinitialize scroll animations for the new section
+        setTimeout(() => {
+            reinitializeScrollAnimations();
+        }, 200);
+    });
+    
+    planTabsContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab-button')) {
+            const targetId = e.target.dataset.target;
+            renderPlanContent(targetId);
+            document.querySelectorAll('#plan-tabs .tab-button').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+        }
+    });
+    
+    } catch (error) {
+        console.error('Critical error in application initialization:', error);
+        // Fallback navigation for critical errors
+        const fallbackNav = document.createElement('div');
+        fallbackNav.innerHTML = '<p class="error-boundary">Application encountered an error. Please refresh the page.</p>';
+        document.body.appendChild(fallbackNav);
+    }
+});
+
+// Performance monitoring
+if ('performance' in window) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            console.log(`Page load time: ${perfData.loadEventEnd - perfData.loadEventStart}ms`);
+        }, 0);
+    });
+}
+
+// Service worker registration for offline functionality (optional future enhancement)
+if ('serviceWorker' in navigator) {
+    // Uncomment to register service worker in the future
+    // navigator.serviceWorker.register('/sw.js').catch(console.error);
+}
+</script>
+
+</body>
+</html>
